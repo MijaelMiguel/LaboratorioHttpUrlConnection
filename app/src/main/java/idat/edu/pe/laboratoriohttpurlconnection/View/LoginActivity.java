@@ -1,6 +1,7 @@
 package idat.edu.pe.laboratoriohttpurlconnection.View;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import idat.edu.pe.laboratoriohttpurlconnection.R;
 
 public class LoginActivity extends AppCompatActivity {
     Button btn1;
+    Button btn2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,12 +25,23 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         btn1 = findViewById(R.id.LogBtnLogin);
+        btn2 = findViewById(R.id.RegBtnLogin);
         //Evento Click
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //GUI -> AsyncTask
                 new Hilo().execute();
+            }
+        });
+
+        //EL REGISTRO EMPIESA AQUI
+        btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent regView = new Intent(getApplicationContext(),RegistroActivity.class);
+                startActivity(regView);
+
             }
         });
 
@@ -44,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         protected void onPreExecute() {
             //super.onPreExecute();
             dlg = new ProgressDialog(LoginActivity.this);
-            dlg.setTitle("BBVA");
+            dlg.setTitle("SUPPORT");
             dlg.setMessage("Validando Usuario...");
             dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             dlg.setCancelable(true);
