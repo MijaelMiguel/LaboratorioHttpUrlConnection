@@ -7,10 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import idat.edu.pe.laboratoriohttpurlconnection.Controller.UsuarioController;
 import idat.edu.pe.laboratoriohttpurlconnection.R;
@@ -18,6 +20,8 @@ import idat.edu.pe.laboratoriohttpurlconnection.R;
 public class LoginActivity extends AppCompatActivity {
     Button btn1;
     Button btn2;
+    EditText correo;
+    EditText pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
 
         btn1 = findViewById(R.id.LogBtnLogin);
         btn2 = findViewById(R.id.RegBtnLogin);
+        correo = findViewById(R.id.LogEdtUserName);
+        pass = findViewById(R.id.LogEdtUserPass);
         //Evento Click
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +81,8 @@ public class LoginActivity extends AppCompatActivity {
             JSONObject env = null;
             try {
                 env = new JSONObject();
-                env.accumulate("usu_nombre","TOMO");
-                env.accumulate("usu_passwd","123456");
+                env.accumulate("usu_nombre",correo.getText());
+                env.accumulate("usu_passwd",pass.getText());
 
 
 
@@ -93,6 +99,11 @@ public class LoginActivity extends AppCompatActivity {
             if(dlg.isShowing()){dlg.dismiss();}
             try {
                 Toast.makeText(getApplicationContext(),s.getString("message"),Toast.LENGTH_LONG).show();
+                if(s.getBoolean("status")==true){
+                    Intent ingreso = new Intent(getApplicationContext(),MainActivity.class);
+                    startActivity(ingreso);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
