@@ -4,10 +4,14 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.util.ArrayList;
 
 import idat.edu.pe.laboratoriohttpurlconnection.R;
 
@@ -28,7 +32,35 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+//1
+        // lista de datos
+        ArrayList<HeladoModel> lst=new ArrayList<>();
+        // ArrayList<>
+        // HeladoModel miobj = new H+eladoModel();
+        lst.add(new HeladoModel("LADRON",R.drawable.ladron));
+        lst.add(new HeladoModel("INCENDIO",  R.drawable.incendio));
+        lst.add(new HeladoModel("PARO CARDIACO", R.drawable.corazon));
+        lst.add(new HeladoModel("ACCIDENTE DE TRANSITO", R.drawable.choque));
+        lst.add(new HeladoModel("TERREMOTO", R.drawable.terremoto));
+        lst.add(new HeladoModel("EXTRAVIADO", R.drawable.perdido));
+        lst.add(new HeladoModel("PARO ", R.drawable.corazon));
+
+
+
+        //10 crear adapter
+        SupportAdapter ad= new SupportAdapter(lst);
+        //setear el recyclerview
+        RecyclerView rv =findViewById(R.id.lista);
+        rv.setHasFixedSize(true);
+        RecyclerView.LayoutManager lym= new LinearLayoutManager(this);
+        rv.setLayoutManager(lym);
+        rv.setAdapter(ad);
+
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -51,4 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
